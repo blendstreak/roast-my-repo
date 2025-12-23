@@ -1,0 +1,45 @@
+{% extends 'layouts/blank.html' %}
+
+{% block content %}
+
+<div class="mt-30 flex flex-col items-center justify-center">
+  <div class="flex flex-col items-center p-5 justify-center text-center">
+    <div>
+      <h1 class="text-white font-extrabold tracking-tight text-5xl md:text-7xl drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+        Your Documentation Sucks. <br/> <span class="text-cyan-400">Let Us Fix It.</span>
+      </h1>
+    </div>
+    <div class="mt-10 font-semibold">
+      <p class="text-xl md:text-2xl text-cyan-100/70 font-light tracking-wide">Paste your GitHub repository link. AI will roast your bad code and generate a professional README in seconds.</p>
+    </div>
+  </div>
+
+  <form hx-post="{% url 'roast_repo' %}"
+        hx-target="#result-container"
+        hx-swap="innerHTML show:top"
+        hx-indicator="#loading-state"
+        class="w-full flex flex-col items-center gap-5 mt-5 px-5"
+
+  >
+  {% csrf_token %}
+      <input name="repo_url" required type="url" class="w-full max-w-2xl p-5 bg-black/40 border border-cyan-900/50 text-cyan-50 
+                     focus:bg-black/60 focus:border-cyan-400 shadow-inner placeholder-cyan-700 
+                     rounded-lg focus:ring-0 focus:outline-none transition-all duration-300" placeholder="https://github.com/username/project-name">
+      <button type="submit" class="text-slate-100 bg-cyan-950/40 backdrop-blur-sm border border-cyan-400/30 
+                     hover:border-cyan-400 hover:bg-cyan-900/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]
+                     text-cyan-300 transition-all duration-300 p-5 rounded-lg font-semibold w-full max-w-xs cursor-pointer">🔥 Roast & Rescue</button>
+
+  </form>
+  
+  <div id="loading-state" class="htmx-indicator mt-8">
+    <div class="flex flex-col items-center space-y-2">
+      <div class="w-12 h-12 border-4 border-cyan-900 border-t-cyan-400 rouded-full animate-spin"></div>
+      <p class="text-cyan-400 font-mono text-sm blink">Analyzing bad code...</p>
+    </div>
+
+  </div>
+  <div id="result-container" class="w-full max-w-5xl mt-10 px-5 pb-20"></div>
+</div>
+
+
+{% endblock %}

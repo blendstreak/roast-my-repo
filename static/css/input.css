@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+.htmx-indicator { display: none;}
+.htmx-request .htmx-indicator { display: block; }
+.htmx-request.htmx-indicator { display: block; }
+@keyframes blink { 50% { opacity: 0; }}
+.blink { animation: blink 1.5s linear infinite; }
+
+.fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+

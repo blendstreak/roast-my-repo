@@ -1,0 +1,96 @@
+<div class="fade-in-up w-full flex flex-col md:flex-row gap-6">
+    
+    <div class="w-full md:w-1/2 bg-black/80 border border-red-500/50 rounded-xl p-6 shadow-[0_0_30px_rgba(239,68,68,0.2)]">
+        <h3 class="text-red-500 font-bold text-xl mb-4 flex items-center gap-2">
+            💀 The Verdict
+        </h3>
+        
+        <div id="roast-content" class="font-mono text-red-200 text-sm md:text-base leading-relaxed">
+            "{{ roast }}"
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-red-900/50">
+            <button onclick="shareOnX()" class="text-xs text-red-400 hover:text-white transition-colors flex items-center gap-2 cursor-pointer">
+              <svg class="w-4 h-4 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+        </svg>  
+              <span>[Share on X]</span>
+            </button>
+            <div class="mt-2 text-center">
+              <span class="text-[10px] text-red-900/30 font-mono uppercase tracking-widest">
+                Satire Only • AI Generated
+              </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full md:w-1/2 bg-black/80 border border-cyan-500/50 rounded-xl p-6 shadow-[0_0_30px_rgba(34,211,238,0.2)]">
+        <h3 class="text-cyan-400 font-bold text-xl mb-4 flex items-center gap-2">
+            📂 Repository Data
+        </h3>
+        
+        
+        <div class="space-y-4">
+            
+            <div>
+                <span class="text-slate-500 text-xs uppercase tracking-wider">Suggested Title</span>
+                <p class="text-white font-bold text-lg mt-1">
+                    {{ readme_title }}
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-cyan-900/50">
+              <form hx-post="{% url 'generate_readme' %}"
+                    hx-target="#readme-container"
+                    hx-swap="innerHTML show:top"
+                    hx-indicator="#readme-loading">
+                {% csrf_token %}
+                <input type="hidden" name="repo_url" value="{{ url }}">
+                <button type="submit" class="w-full py-3 bg-cyan-900/40 hover:bg-cyan-500 hover:cursor-pointer hover:text-black border border-cyan-500/50 text-cyan-400 font-bold rounded-lg transition-all flex justify-center items-center gap-2">
+                  ✨ Generate Full README
+                </button>
+              </form>
+            </div>
+        </div>
+ 
+            <div>
+                <span class="text-slate-500 text-xs uppercase tracking-wider">Target URL</span>
+                <p class="text-cyan-100 font-mono text-sm break-all bg-cyan-900/20 p-2 rounded mt-1">
+                    {{ url }}
+                </p>
+            </div>
+            
+            <div>
+                <span class="text-slate-500 text-xs uppercase tracking-wider">Status</span>
+                <div class="flex items-center gap-2 mt-1">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span class="text-emerald-400 text-sm">Successfully Connected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="readme-loading" class="htmx-indicator mt-8 text-center">
+      <span class="text-emerald-400 font-mono animate-pulse">Writing documentation... (this takes a few seconds)</span>
+    </div>
+
+    <div id="readme-container" class="w-full mt-8"></div>
+</div>
+<script>
+    function shareOnX() {
+        // Step A: Get the roast text
+        var roastText = document.getElementById("roast-content").innerText.trim();
+        
+        // Step B: Define your App's URL (Change this when you deploy!)
+        var appUrl = window.location.origin;; 
+        
+        // Step C: Construct the Tweet
+        // We truncate to ~200 chars to leave room for the link/hashtags
+        var tweetText = "AI just roasted my code: " + roastText.substring(0, 200) + "... 💀";
+        
+        // Step D: Build the X Intent URL
+        var twitterUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetText) + "&url=" + encodeURIComponent(appUrl) + "&hashtags=RoastMyRepo,DeveloperHumor";
+        
+        // Step E: Open in a new window
+        window.open(twitterUrl, '_blank', 'width=550,height=420');
+    }
+</script>
+
