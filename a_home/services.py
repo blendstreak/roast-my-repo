@@ -10,6 +10,11 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 }
+
+github_token = os.getenv('GITHUB_TOKEN')
+if github_token:
+    headers['Authorization'] = f'token {github_token}'
+
 if not GEMINI_API_KEY:
     raise ValueError("No API Key found! Check your .env file.")
 

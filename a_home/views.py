@@ -9,6 +9,7 @@ def roast_repo_view(request):
     if request.htmx:
         
         repo_url = request.POST.get('repo_url')
+        repo_url = repo_url.rstrip('/')
         owner, project = get_repo_details(repo_url)
         
         if not owner or not project:
@@ -36,6 +37,7 @@ def roast_repo_view(request):
 def generate_readme_view(request):
     if request.htmx:
         repo_url = request.POST.get("repo_url")
+        repo_url = repo_url.rstrip('/')
         owner, repo_name = get_repo_details(repo_url)
 
         files = fetch_file_tree(owner, repo_name)
