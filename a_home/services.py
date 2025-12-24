@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+}
 if not GEMINI_API_KEY:
     raise ValueError("No API Key found! Check your .env file.")
 
@@ -33,11 +35,11 @@ def get_dependency_file(owner, repo, files):
         return "No dependency file found."
 
     raw_url = f"https://raw.githubusercontent.com/{owner}/{repo}/main/{found_file}"
-    response = requests.get(raw_url)
+    response = requests.get(raw_url, headers=headers)
 
     if response.status_code != 200:
         raw_url = f"https://raw.githubusercontent.com/{owner}/{repo}/master/{found_file}"
-        response = requests.get(raw_url)
+        response = requests.get(raw_url, headers=headers)
 
     if response.status_code == 200:
         return f"File: {found_file}\nContent\n{response.text[:1000]}"
@@ -141,7 +143,7 @@ def get_repo_details(url):
 def fetch_file_tree(owner,repo):
     api_url = f"https://api.github.com/repos/{owner}/{repo}/git/trees/main?recursive=1"
 
-    response = requests.get(api_url)
+    response = requests.get(api_url, headers=headers)
 
     if response.status_code == 200:
         data = response.json()
@@ -149,7 +151,7 @@ def fetch_file_tree(owner,repo):
         return data.get('tree', [])
     elif response.status_code == 404:
         api_url = f"https://api.github.com/repos/{owner}/{repo}/git/trees/master?recursive=1"
-        response = requests.get(api_url)
+        response = requests.get(api_url, headers=headers)
         if response.status_code == 200:
             return response.json().get('tree', [])
 
