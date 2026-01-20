@@ -1,7 +1,7 @@
-# Dynamic Content Web Application
+# Roast My Repo
 
-This project is a modern web application built using the Django framework in Python. It's designed to serve dynamic content, likely showcasing interactive elements or generated text, as hinted by templates such as `readme_result.html` and `roast_partial.html` within the `a_home` application. The application leverages SQLite for its database needs and integrates TailwindCSS for a utility-first approach to styling, providing a sleek and responsive user interface for displaying its content.
-
+This project is a modern web application built using the Django framework in Python. It's designed to serve dynamic content, showcasing interactive elements or generated text. The application leverages SQLite for its database needs and integrates TailwindCSS for a utility-first approach to styling, providing a sleek and responsive user interface for displaying its content.
+Get your repo roasted by AI and generate README for it. 
 ## Tech Stack
 
 The core technologies and tools used in this project include:
@@ -30,10 +30,9 @@ Ensure you have the following installed on your system:
     If you haven't already, clone the project repository to your local machine:
 
     ```bash
-    git clone <repository_url>
-    cd <project_directory>
+    git clone https://github.com/blendstreak/roast-my-repo
+    cd roast-my-repo
     ```
-    *(Replace `<repository_url>` with the actual repository URL and `<project_directory>` with the name of the cloned directory.)*
 
 2.  **Set up Python Virtual Environment**
     It's highly recommended to use a virtual environment to manage Python dependencies to avoid conflicts with other projects.
@@ -53,14 +52,15 @@ Ensure you have the following installed on your system:
     pip install -r requirements.txt
     ```
 
-4.  **Install Node.js Dependencies**
+4.  **Install Node.js Dependencies (For development, just for tailwindcss)**
     Install frontend-related packages, including the Tailwind CSS CLI.
+    
 
     ```bash
     npm install
     ```
 
-5.  **Compile Tailwind CSS**
+6.  **Compile Tailwind CSS**
     Generate the production-ready CSS file from your Tailwind input.
 
     ```bash
@@ -72,14 +72,14 @@ Ensure you have the following installed on your system:
     npx tailwindcss -i ./static/css/input.css -o ./static/css/styles.css --watch
     ```
 
-6.  **Apply Database Migrations**
+7.  **Apply Database Migrations**
     Set up the database schema for the project.
 
     ```bash
     python manage.py migrate
     ```
 
-7.  **Run the Development Server**
+8.  **Run the Development Server**
     Start the Django development server to access the application.
 
     ```bash
